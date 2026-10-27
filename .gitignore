@@ -1,0 +1,20 @@
+node_modules/
+dist/
+
+# Logs e arquivos temporários
+*.log
+*.tsbuildinfo
+coverage/
+.cache/
+tmp/
+temp/
+*.tmp
+
+# Segredos e configurações locais
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
