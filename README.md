@@ -1,26 +1,35 @@
 # 🍔 BurgerTech — Sistema de Pedidos de Hamburgueria
 
-**Autoria: Mariana Capelari**
+##Sobre o projeto
 
-## 📋 Sobre o projeto
-
-O **BurgerTech** simula o atendimento de uma hamburgueria. O cliente monta um hambúrguer personalizado, pode incluir extras, escolhe uma forma de pagamento e confirma o pedido. Após a confirmação, o pedido entra no histórico da aplicação e a cozinha e o painel de pedidos recebem notificações simuladas.
-
+O **BurgerTech** simula o atendimento de uma hamburgueria. O cliente monta um hambúrguer personalizado, pode incluir extras, escolhe uma forma de pagamento e confirma o pedido. 
+Após a confirmação, o pedido entra no histórico da aplicação e a cozinha e o painel de pedidos recebem notificações simuladas.
 
 ### 🎯 Objetivo
 
 Demonstrar o uso consciente de padrões das três categorias estudadas:
-
 - **Criacionais:** Builder e Singleton.
 - **Estruturais:** Decorator.
 - **Comportamentais:** Strategy e Observer.
 
-## ✨ Funcionalidades
-
-- Seleção do tipo de pão: **Brioche, Australiano ou Tradicional**.
-- Seleção do tipo de carne: **Bovina, Frango ou Suína**.
-- Escolha dos ingredientes opcionais: **queijo, salada e molho**.
-- Inclusão de extras: **bacon, cheddar e ovo**.
+##Funcionalidades
+- Seleção do tipo de pão:
+  - Brioche
+  - Australiano
+  - Tradicional
+- Seleção do tipo de carne:
+  - Bovina
+  - Frango
+  - Suína
+- Escolha dos ingredientes opcionais:
+  - queijo
+  - salada
+  - molho
+- Inclusão de extras:
+  - bacon
+  - cheddar
+  - ovo
+  
 - Cálculo do preço conforme os ingredientes escolhidos.
 - Pagamento simulado por **PIX, cartão ou dinheiro**, com **5% de desconto no PIX**.
 - Resumo do pedido antes da confirmação.
@@ -29,7 +38,7 @@ Demonstrar o uso consciente de padrões das três categorias estudadas:
 - Notificação simulada à cozinha e ao painel após a confirmação.
 - Histórico dos pedidos confirmados e histórico de logs.
 
-## 🔄 Como funciona o atendimento
+##Como funciona o atendimento
 
 ```text
 INÍCIO
@@ -60,7 +69,7 @@ VOLTAR AO INÍCIO
 
 O menu apresenta as opções adequadas à **etapa atual**. Após a confirmação ou cancelamento, o pedido atual é limpo, e um novo atendimento pode começar. As opções de consultar pedidos anteriores e logs estão disponíveis durante a navegação.
 
-## 🧱 Padrões de Projeto implementados
+##Padrões de Projeto implementados
 
 ### 1. Builder — Criacional
 
@@ -255,49 +264,6 @@ npm run build      # Compila o TypeScript
 npm run typecheck  # Verifica tipos sem gerar arquivos
 npx tsc --noEmit   # Verifica tipos sem gerar arquivos
 ```
-
-## 🧪 Roteiro para demonstrar ao professor
-
-1. Execute `npm start` e mostre que a primeira etapa é a montagem.
-2. Selecione **pão Brioche**, **carne Bovina** e **queijo**.
-3. Acrescente **bacon** e **cheddar** e observe a atualização da descrição e do preço.
-4. Continue para o pagamento e escolha **PIX** para demonstrar o desconto de 5%.
-5. Confira o resumo e confirme o pedido.
-6. Observe as mensagens da **cozinha** e do **painel de pedidos**.
-7. Consulte o histórico de pedidos e os logs.
-8. Execute `npm test` para mostrar os testes das regras principais.
-
-**Exemplo de cálculo com essas escolhas:** lanche base R$ 20,00 + queijo R$ 3,00 + bacon R$ 6,00 + cheddar R$ 4,00 = **R$ 33,00**. Com desconto fictício de 5% no PIX, o total é **R$ 31,35**.
-
-## ⚠️ Limitações da aplicação
-
-O BurgerTech é um projeto **didático**, executado no terminal:
-
-- Não realiza cobranças financeiras reais.
-- Não envia notificações externas: cozinha e painel recebem mensagens no próprio terminal.
-- Não utiliza banco de dados; pedidos e logs são mantidos em memória e perdidos quando o programa é encerrado.
-- O histórico do Singleton armazena somente os **cinco registros de log mais recentes**.
-- Os preços e descontos são valores simulados para fins acadêmicos.
-- Os testes automatizados verificam os módulos e cenários de navegação: entradas inválidas, bloqueio de etapas, extras, desconto PIX, troca de pagamento, confirmação, notificações, histórico e cancelamento. O roteiro manual complementa essa cobertura.
-
-## Preparação para GitHub
-
-Mantenha `package-lock.json` no repositório para reproduzir as dependências com `npm ci`. O `.gitignore` exclui dependências, saída compilada, logs, arquivos temporários, configurações locais de editores e arquivos `.env`. Um eventual `.env.example` pode ser versionado com valores fictícios.
-
-O projeto não precisa de credenciais ou variáveis de ambiente. Antes de publicar, confira os arquivos preparados com `git status` e `git diff --cached`. O `.gitignore` não remove arquivos que já estejam versionados. A opção `private: true` no `package.json` evita publicação acidental no registro npm e permite hospedar o código no GitHub normalmente.
-
-## 📚 Referências de estudo
-
-Conceitos e exemplos trabalhados nos materiais disponibilizados na disciplina:
-
-- *Padrões de Projeto — Introdução*.
-- *Builder*.
-- *Padrão Decorator*.
-- *Padrão Strategy*.
-- *Padrão Observer*.
-- *Singleton*.
-
----
 
 **Projeto acadêmico — Disciplina de Padrões de Projeto**  
 **Linguagem:** TypeScript  
