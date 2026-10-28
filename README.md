@@ -38,7 +38,7 @@ Demonstrar o uso consciente de padrões das três categorias estudadas:
 - Notificação simulada à cozinha e ao painel após a confirmação.
 - Histórico dos pedidos confirmados e histórico de logs.
 
-##Como funciona o atendimento
+### Como funciona o atendimento
 
 ```text
 INÍCIO
@@ -264,7 +264,3 @@ npm run build      # Compila o TypeScript
 npm run typecheck  # Verifica tipos sem gerar arquivos
 npx tsc --noEmit   # Verifica tipos sem gerar arquivos
 ```
-
-**Projeto acadêmico — Disciplina de Padrões de Projeto**  
-**Linguagem:** TypeScript  
-**Aplicação:** BurgerTech 🍔
