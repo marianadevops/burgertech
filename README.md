@@ -1,6 +1,6 @@
 # 🍔 BurgerTech — Sistema de Pedidos de Hamburgueria
 
-##Sobre o projeto
+### Sobre o projeto
 
 O **BurgerTech** simula o atendimento de uma hamburgueria. O cliente monta um hambúrguer personalizado, pode incluir extras, escolhe uma forma de pagamento e confirma o pedido. 
 Após a confirmação, o pedido entra no histórico da aplicação e a cozinha e o painel de pedidos recebem notificações simuladas.
@@ -12,7 +12,7 @@ Demonstrar o uso consciente de padrões das três categorias estudadas:
 - **Estruturais:** Decorator.
 - **Comportamentais:** Strategy e Observer.
 
-##Funcionalidades
+### Funcionalidades
 - Seleção do tipo de pão:
   - Brioche
   - Australiano
