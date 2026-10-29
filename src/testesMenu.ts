@@ -30,7 +30,7 @@ async function executarMenu(passos: Passo[]): Promise<string> {
     processo.stdout.on('data', (dados: string) => {
       saida += dados;
       tela += dados;
-      if (!/(?:Opção: |\(s\/n\): )$/.test(tela)) {
+      if (!/(?:Digite a opção desejada: |\(s\/n\): )$/.test(tela)) {
         return;
       }
       try {
@@ -116,5 +116,26 @@ export async function testarMenu(): Promise<void> {
     { tela: 'Nenhum pedido confirmado.', resposta: '0' }
   ]);
   assert.ok(!cancelamento.includes('[COZINHA]'));
+  const multiplos = await executarMenu([
+    { tela: 'MONTAGEM', resposta: '1' },
+    { tela: 'TIPO DE PÃO', resposta: '1' },
+    { tela: 'TIPO DE CARNE', resposta: '1' },
+    { tela: 'Adicionar queijo?', resposta: 'n' },
+    { tela: 'Adicionar salada?', resposta: 'n' },
+    { tela: 'Adicionar molho?', resposta: 'n' },
+    { tela: 'Subtotal: R$ 20,00', resposta: '1' },
+    { tela: 'Bacon (+ R$ 6,00)', resposta: '1, 9' },
+    { tela: 'Opção inválida.', resposta: '1' },
+    { tela: 'Bacon (+ R$ 6,00)', resposta: '1, 2, 3' },
+    { tela: 'Subtotal: R$ 33,00', resposta: '2' },
+    { tela: 'PAGAMENTO', resposta: '1' },
+    { tela: 'FORMAS DE PAGAMENTO', resposta: '1' },
+    { tela: 'Total a pagar: R$ 31,35', resposta: '1' },
+    { tela: '[PAINEL] Pedido #1 confirmado.', resposta: '0' }
+  ]);
+  assert.ok(multiplos.includes('Bacon'));
+  assert.ok(multiplos.includes('Cheddar'));
+  assert.ok(multiplos.includes('Ovo'));
+  assert.ok(multiplos.includes('Subtotal: R$ 20,00'));
   console.log('Testes do menu passaram: etapas, validação, pagamento, confirmação, cancelamento e histórico.');
 }

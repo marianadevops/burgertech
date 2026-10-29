@@ -1,5 +1,7 @@
 # 🍔 BurgerTech — Sistema de Pedidos de Hamburgueria
 
+**Autoria: Mariana Capelari**
+
 ### Sobre o projeto
 
 O **BurgerTech** simula o atendimento de uma hamburgueria. O cliente monta um hambúrguer personalizado, pode incluir extras, escolhe uma forma de pagamento e confirma o pedido. 
@@ -29,6 +31,7 @@ Demonstrar o uso consciente de padrões das três categorias estudadas:
   - bacon
   - cheddar
   - ovo
+- Seleção de vários extras de uma vez, separados por vírgula: **`1, 2, 3`**.
   
 - Cálculo do preço conforme os ingredientes escolhidos.
 - Pagamento simulado por **PIX, cartão ou dinheiro**, com **5% de desconto no PIX**.
@@ -182,7 +185,7 @@ logger.imprimirHistorico();
 | Classe abstrata | `ItemDecorator` | Compartilha a implementação básica dos decoradores |
 | `enum` | `StatusPedido` e `EtapaPedido` (no `index.ts`) | Representam situações definidas do pedido |
 | Genéricos | `Historico<T>` | Permitem armazenar registros de tipos compatíveis |
-| Tipo utilitário | `Pick<Pedido, ...>` em `ResumoPedido` | Seleciona propriedades de um tipo existente |
+| Tipo utilitário | `Pick<Pedido, 'id' \| 'total' \| 'status'>` em `ResumoPedido` | Define os dados recebidos por `exibirResumoPedido()`, chamada por `listarPedidos()` no `index.ts` |
 | Tipos literais | `NivelLog` | Restringe os níveis a `INFO`, `WARN` e `ERROR` |
 | `async`/`await` | Funções de leitura do menu | Esperam as escolhas digitadas no terminal |
 

@@ -5,7 +5,7 @@ import { Item, BaconDecorator, CheddarDecorator, OvoDecorator } from './decorato
 import { Caixa, EstrategiaPagamento, PagamentoPix, PagamentoCartao, PagamentoDinheiro } from './strategy/Pagamentos';
 import { CentralPedidos, Cozinha, PainelPedidos } from './observer/Notificacoes';
 import { LoggerService } from './singleton/LoggerService';
-import { Historico, Pedido, StatusPedido } from './models/Pedido';
+import { Historico, Pedido, ResumoPedido, StatusPedido } from './models/Pedido';
 
 // ==========================================
 // CONFIGURAÇÃO DO SISTEMA
@@ -66,7 +66,7 @@ async function escolherOpcao(titulo: string, opcoes: string[]): Promise<string |
       console.log(`${indice + 1} - ${opcao}`);
     });
     console.log('0 - Cancelar');
-    const resposta = await perguntar('Opção: ');
+    const resposta = await perguntar('\nDigite a opção desejada: ');
     if (resposta === '0') {
       return null;
     }
@@ -152,8 +152,18 @@ async function adicionarExtra(): Promise<void> {
   console.log('2 - Cheddar (+ R$ 4,00)');
   console.log('3 - Ovo (+ R$ 3,00)');
   console.log('0 - Voltar');
-  const opcao = await perguntar('Opção: ');
-  switch (opcao) {
+  console.log('Escolha um ou mais adicionais separados por vírgula (ex.: 1, 2, 3).');
+  const opcao = await perguntar('\nDigite a opção desejada: ');
+  if (opcao === '0') {
+    return;
+  }
+  const opcoes = opcao.split(',').map(valor => valor.trim());
+  if (opcoes.some(valor => !['1', '2', '3'].includes(valor))) {
+    console.log('Opção inválida. Use 1, 2 ou 3 separados por vírgula.');
+    return;
+  }
+  for (const adicional of opcoes) {
+    switch (adicional) {
     case '1':
       item = new BaconDecorator(item);
       break;
@@ -163,11 +173,7 @@ async function adicionarExtra(): Promise<void> {
     case '3':
       item = new OvoDecorator(item);
       break;
-    case '0':
-      return;
-    default:
-      console.log('Opção inválida.');
-      return;
+    }
   }
   logs.log('INFO', 'Adicional incluído no lanche');
   console.log('\nAdicional incluído!');
@@ -188,7 +194,7 @@ async function escolherPagamento(): Promise<void> {
   console.log('2 - Cartão');
   console.log('3 - Dinheiro');
   console.log('0 - Voltar aos adicionais');
-  const opcao = await perguntar('Opção: ');
+  const opcao = await perguntar('\nDigite a opção desejada: ');
   switch (opcao) {
     case '1':
       pagamento = new PagamentoPix();
@@ -249,13 +255,18 @@ function finalizar(): void {
   };
   historico.adicionar(pedido);
   logs.log('INFO', `Pedido #${pedido.id} confirmado: ${dinheiro(pedido.total)}`);
-  console.log('\n===== PEDIDO CONFIRMADO =====');
-  console.log(`Pedido #${pedido.id}`);
-  console.log(`Lanche: ${pedido.item.getDescricao()}`);
-  console.log(`Pagamento: ${resultado.forma}`);
-  console.log(`Total: ${dinheiro(pedido.total)}`);
+  console.log('\n\n========================================');
+  console.log('          PEDIDO CONFIRMADO');
+  console.log('========================================\n');
+  console.log(`Pedido #${pedido.id}\n`);
+  console.log(`Lanche: ${pedido.item.getDescricao()}\n`);
+  console.log(`Pagamento: ${resultado.forma}\n`);
+  console.log(`Total: ${dinheiro(pedido.total)}\n`);
+  console.log('----------------------------------------');
+  console.log('Notificações do pedido\n');
   // PADRÃO OBSERVER
   central.notificar(`Pedido #${pedido.id} confirmado.`);
+  console.log('\n========================================\n');
   // Reinicia para o próximo cliente
   reiniciarPedido();
 }
@@ -263,6 +274,12 @@ function finalizar(): void {
 // ==========================================
 // HISTÓRICO DE PEDIDOS
 // ==========================================
+
+function exibirResumoPedido(resumo: ResumoPedido): void {
+  console.log(`\nPedido #${resumo.id}`);
+  console.log(`Total: ${dinheiro(resumo.total)}`);
+  console.log(`Status: ${resumo.status}`);
+}
 
 function listarPedidos(): void {
   console.log('\n===== PEDIDOS CONFIRMADOS =====');
@@ -272,10 +289,13 @@ function listarPedidos(): void {
     return;
   }
   for (const pedido of pedidos) {
-    console.log(`\nPedido #${pedido.id}`);
+    const resumo: ResumoPedido = {
+      id: pedido.id,
+      total: pedido.total,
+      status: pedido.status
+    };
+    exibirResumoPedido(resumo);
     console.log(pedido.item.getDescricao());
-    console.log(`Total: ${dinheiro(pedido.total)}`);
-    console.log(`Status: ${pedido.status}`);
   }
 }
 
@@ -319,7 +339,7 @@ async function main(): Promise<void> {
       console.log('8 - Consultar pedidos anteriores');
       console.log('9 - Consultar logs');
       console.log('0 - Sair');
-      const opcao = await perguntar('Opção: ');
+      const opcao = await perguntar('\nDigite a opção desejada: ');
       if (opcao === '0') {
         console.log('Até logo!');
         return;
