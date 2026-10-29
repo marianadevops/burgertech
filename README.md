@@ -72,7 +72,7 @@ VOLTAR AO INÍCIO
 
 O menu apresenta as opções adequadas à **etapa atual**. Após a confirmação ou cancelamento, o pedido atual é limpo, e um novo atendimento pode começar. As opções de consultar pedidos anteriores e logs estão disponíveis durante a navegação.
 
-##Padrões de Projeto implementados
+### Padrões de Projeto implementados
 
 ### 1. Builder — Criacional
 
